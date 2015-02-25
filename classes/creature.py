@@ -1,6 +1,7 @@
 from cre_templates import *
 import random
 
+
 class Creature(object):
 	'''Creatures are the basic inhabitants of the world. They have
 	various inherent properties like hit points and damage, and can
@@ -33,74 +34,98 @@ class Creature(object):
 
 		self.description = ""
 
-		if self.level == 0: no_mods = random.randint(1,3)
-		else: no_mods = random.randint(1,self.level+3)
-		
+		no_mods = random.randint(0,3)
+		mod_types = ["mood", "adjective", "nationality", "weapon"]
 		mods = []
-		avail_mods = [cre_adjective, cre_mood, cre_nationality, cre_weapon]
 
 		for n in range(no_mods):
-			mod_type = random.choice(avail_mods)
-			if mod_type == cre_nationality:
-				avail_mods.remove(cre_nationality)
-			elif mod_type == cre_mood:
-				avail_mods.remove(cre_mood)
+			choosemod = random.choice(mod_types)
+			if choosemod in ['mood','nationality']:
+				mod_types.remove(choosemod)
+			mods.append(choosemod)
+
+		keywords = []
+		for modtype in mods:
+			avail_words = []
+			for word in wordlist:
+				if word.type = modtype:
+					avail_words.append(word)
+			word = random.choice(avail_words)
+			keywords.append(word)
+
+		tempamount = 1
+		if len(keywords) < (self.level+3):
+			for word in keywords:
+				if word.subtype = "candy":
+					tempamount *= random.choice([50,75,100])
+				else:
+					tempamount *= random.choice([1,2,3,5,10])
+
+		for word in wordlist:
+			if (word.type = "amount") and (word.subtype = tempamount):
+				keywords.append(word)
+
+		template = "amount mood nationality adjective noun weapon"
+		templatelist = template.split(" ")
+
+		for word in keywords:
+
+
+		# self.description = ""
+
+		# if len(mods) < self.level+3:
+		# 	if ("gummy" or "gingerbread") in mods:
+		# 		amount = random.choice(cre_amount[-4:])
+		# 	else: amount = random.choice(cre_amount[:4])
+		# else: amount = (1, "a")
+
+		# (number, no_desc) = amount
+
+		# noun = random.choice(cre_noun)
+		# self.internal = noun
+
+		# if number > 1: 
+		# 	self.gender = "collective"
 			
-			mods.append(random.choice(mod_type)) 
+		# 	self.description += no_desc + " of "
+		# 	if noun[-3:] == "man":
+		# 		noun = noun[:-3] + "men"
+		# 		self.internal = "strongmen"
+		# 	elif noun == "bunny":
+		# 		noun = "bunnies"
+		# 		self.internal = noun
+		# 	else:
+		# 		noun += "s"
+		# 		self.internal += "s"
 
-		if len(mods) < self.level+3:
-			if ("gummy" or "gingerbread") in mods:
-				amount = random.choice(cre_amount[-4:])
-			else: amount = random.choice(cre_amount[:4])
-		else: amount = (1, "a")
+		# list(set(mods))
 
-		(number, no_desc) = amount
+		# for mod in mods:
+		# 	if mod in cre_mood: 
+		# 		self.description += mod + ", "
 
-		noun = random.choice(cre_noun)
-		self.internal = noun
+		# for mod in mods:
+		# 	if mod in cre_nationality: 
+		# 		self.description += mod + ", "
 
-		if number > 1: 
-			self.gender = "collective"
-			
-			self.description += no_desc + " of "
-			if noun[-3:] == "man":
-				noun = noun[:-3] + "men"
-				self.internal = "strongmen"
-			elif noun == "bunny":
-				noun = "bunnies"
-				self.internal = noun
-			else:
-				noun += "s"
-				self.internal += "s"
+		# for mod in mods:
+		# 	if mod in cre_adjective: 
+		# 		self.description += mod + ", "
 
-		list(set(mods))
+		# self.description = self.description[:-2] + " " + noun
 
-		for mod in mods:
-			if mod in cre_mood: 
-				self.description += mod + ", "
+		# weaps = []
+		# for mod in mods:
+		# 	if mod in cre_weapon: 
+		# 		weaps.append(mod)
 
-		for mod in mods:
-			if mod in cre_nationality: 
-				self.description += mod + ", "
-
-		for mod in mods:
-			if mod in cre_adjective: 
-				self.description += mod + ", "
-
-		self.description = self.description[:-2] + " " + noun
-
-		weaps = []
-		for mod in mods:
-			if mod in cre_weapon: 
-				weaps.append(mod)
-
-		if len(weaps) == 1:
-			self.description += ", wielding " + weaps[0]
-		elif len(weaps) >= 1:
-			self.description += ", wielding "
-			for weap in weaps:
-				self.description += weap + " and "
-			self.description = self.description[:-5]
+		# if len(weaps) == 1:
+		# 	self.description += ", wielding " + weaps[0]
+		# elif len(weaps) >= 1:
+		# 	self.description += ", wielding "
+		# 	for weap in weaps:
+		# 		self.description += weap + " and "
+		# 	self.description = self.description[:-5]
 
 
 
